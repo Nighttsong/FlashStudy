@@ -1,5 +1,9 @@
 package com.flashCard.service;
 
-public class FlashcardService {
+import com.flashCard.model.FlashCardSet;
+
+public interface FlashcardService {
+
+	 public void saveLogin(FlashCardSet set);
 
 }

@@ -1,9 +1,12 @@
 package com.flashCard.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +16,7 @@ import com.flashCard.model.FlashCardSet;
 import com.flashCard.model.User;
 import com.flashCard.service.FlashcardService;
 
+@Controller
 public class CreateFlashcardController {
 
 	@Autowired
@@ -20,7 +24,8 @@ public class CreateFlashcardController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView createPage(HttpServletRequest request, HttpServletResponse response) {
-		String user = (String) request.getAttribute("user");
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
 		ModelAndView mav = null;
 		if(user != null) {
 			mav = new ModelAndView("create");

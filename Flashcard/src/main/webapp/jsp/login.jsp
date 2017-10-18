@@ -7,10 +7,16 @@
             <title>Login</title>
         </head>
         <body style="background-color: #d3ccb8">
-       	<div id="banner">
+       	<div id="banner" align=center>
 		<div id="wrapper" style="width: 100%; overflow: hidden;">
 			<div id="container" style="width: 100%; margin-right: auto;">
 				<img style="width: 100%;" src="https://i.imgur.com/p0McYtw.jpg" />
+			</div>
+		</div>
+		<div  style="width: 75%;">
+			<div style="width: 100%; margin-right: auto;">
+				<a href="mainPublicPage">Home</a>
+				<a href="register">Register</a>
 			</div>
 		</div>
 	</div>
@@ -40,12 +46,6 @@
                         <td></td>
                         <td align="left">
                             <form:button id="login" name="login">Login</form:button>
-                        </td>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td></td>
-                        <td><a href="mainPublicPage">Home</a>
                         </td>
                     </tr>
                 </table>

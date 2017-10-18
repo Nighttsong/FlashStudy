@@ -7,22 +7,20 @@
 <title>Flash Study</title>
 </head>
 <body style="background-color: #d3ccb8">
-	<div id="banner">
+	<div id="banner" align="center">
 		<div id="wrapper" style="width: 100%; overflow: hidden;">
 			<div id="container" style="width: 100%; margin-right: auto;">
 				<img style="width: 100%;" src="https://i.imgur.com/p0McYtw.jpg" />
 			</div>
 		</div>
+		<div  style="width: 75%;">
+			<div style="width: 100%; margin-right: auto;">
+				<a href="register">Register</a>
+				<a href="login">Login</a>
+			</div>
+		</div>
 	</div>
 
-	<table align="center">
-		<tr>
-			<td><a href="register">Register</a></td>
-			<td><a href="login">Login</a></td>
-		</tr>
-
-	</table>
-
-	<p>This is where we put the public flashcard sets</p>
+	<h2>Public Sets: </h2>
 </body>
 </html>

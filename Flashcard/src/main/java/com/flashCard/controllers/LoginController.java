@@ -2,12 +2,15 @@ package com.flashCard.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.flashCard.model.User;
 import com.flashCard.service.LoginService;
 
@@ -30,6 +33,9 @@ public class LoginController {
 		User user = loginService.validateLogin(login);
 		if (null != user) {
 			mav = new ModelAndView("userMainPage");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", login.getUsername());
+			session.setAttribute("nickname", login.getNickname());
 			mav.addObject("nickname", user.getNickname());
 			mav.addObject("user", user.getUsername());
 		} else {
@@ -45,6 +51,9 @@ public class LoginController {
 		ModelAndView mav = null;
 		loginService.saveLogin(login);
 		mav = new ModelAndView("userMainPage");
+		HttpSession session = request.getSession();
+		session.setAttribute("user", login.getUsername());
+		session.setAttribute("nickname", login.getNickname());
 		mav.addObject("nickname", login.getNickname());
 		mav.addObject("user", login.getUsername());
 		return mav;
@@ -69,4 +78,19 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/userMainPage", method = RequestMethod.GET)
+	public ModelAndView userMainPageGet(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		ModelAndView mav = null;
+		if(user != null) {
+			mav = new ModelAndView("userMainPage");
+		}else {
+			mav = new ModelAndView("login");
+		}
+		return mav;
+	}
+	
 }
