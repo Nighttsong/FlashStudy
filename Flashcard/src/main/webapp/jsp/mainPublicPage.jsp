@@ -1,10 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Flash Study</title>
+<style>
+	th, td {
+    	padding: 15px;
+    	text-align: left;
+	}
+	table, th, td {
+    	border: 1px solid black;
+	}
+</style>
 </head>
 <body style="background-color: #d3ccb8">
 	<div id="banner" align="center">
@@ -22,5 +32,24 @@
 	</div>
 
 	<h2>Public Sets: </h2>
+	<table align="center">
+		<tr>
+			<th>FlashCard Category</th>
+			<th>FlashCard Set</th>
+			<th>View</th>
+			<th>Edit</th>
+			<th>Print</th>
+		</tr>
+		
+		 <c:forEach items="${FlashCardList}" var="flashcard" >
+			<tr>
+				<td>${flashcard.category}</td>
+				<td>${flashcard.name}</td>
+				 <td><a href="/view?id=${flashcard.id}">View</a></td>
+				 <td><a href="/edit?id=${flashcard.id}">Edit</a></td>
+				 <td><a href="/print?id=${flashcard.id}">Print</a></td>
+			</tr>
+		</c:forEach>
+	</table>
 </body>
 </html>

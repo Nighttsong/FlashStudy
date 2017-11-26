@@ -1,5 +1,7 @@
 package com.flashCard.controllers;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.flashCard.model.FlashCard;
 import com.flashCard.model.User;
 import com.flashCard.service.LoginService;
 
@@ -38,6 +41,9 @@ public class LoginController {
 			session.setAttribute("nickname", login.getNickname());
 			mav.addObject("nickname", user.getNickname());
 			mav.addObject("user", user.getUsername());
+			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			mav.addObject("FlashCardList", flashcardList);
 		} else {
 			mav = new ModelAndView("login");
 			mav.addObject("message", "Username or Password is wrong!!");
@@ -57,6 +63,9 @@ public class LoginController {
 			session.setAttribute("nickname", login.getNickname());
 			mav.addObject("nickname", login.getNickname());
 			mav.addObject("user", login.getUsername());
+			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			mav.addObject("FlashCardList", flashcardList);
 		}else{
 			  mav = new ModelAndView("register");
 			  mav.addObject("user", new User());
@@ -76,12 +85,18 @@ public class LoginController {
 	@RequestMapping(value = "*", method = RequestMethod.GET)
 	public ModelAndView defaultMainPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
+		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+		flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/mainPublicPage", method = RequestMethod.GET)
 	public ModelAndView mainPublicPageGet(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
+		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+		flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
 	
@@ -93,8 +108,12 @@ public class LoginController {
 		ModelAndView mav = null;
 		if(user != null) {
 			mav = new ModelAndView("userMainPage");
+			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			mav.addObject("FlashCardList", flashcardList);
 		}else {
 			mav = new ModelAndView("login");
+			mav.addObject("login", new User());
 		}
 		return mav;
 	}
