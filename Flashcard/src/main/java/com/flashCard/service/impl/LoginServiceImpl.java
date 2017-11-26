@@ -19,8 +19,8 @@ public class LoginServiceImpl implements LoginService {
         return user;
     }
 
-    public void saveLogin(User user) {
-    	loginDao.saveLogin(user);
+    public String saveLogin(User user) {
+    	return loginDao.saveLogin(user);
     }
 
     public void deleteLogin(int id) {

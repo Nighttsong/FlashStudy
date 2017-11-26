@@ -49,13 +49,19 @@ public class LoginController {
 	public ModelAndView registerProcess(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("user") User login) {
 		ModelAndView mav = null;
-		loginService.saveLogin(login);
-		mav = new ModelAndView("userMainPage");
-		HttpSession session = request.getSession();
-		session.setAttribute("user", login.getUsername());
-		session.setAttribute("nickname", login.getNickname());
-		mav.addObject("nickname", login.getNickname());
-		mav.addObject("user", login.getUsername());
+		String didItWork = loginService.saveLogin(login);
+		if(didItWork.equals("success")) {
+			mav = new ModelAndView("userMainPage");
+			HttpSession session = request.getSession();
+			session.setAttribute("user", login.getUsername());
+			session.setAttribute("nickname", login.getNickname());
+			mav.addObject("nickname", login.getNickname());
+			mav.addObject("user", login.getUsername());
+		}else{
+			  mav = new ModelAndView("register");
+			  mav.addObject("user", new User());
+            mav.addObject("message", didItWork);
+		}
 		return mav;
 	}
 	
