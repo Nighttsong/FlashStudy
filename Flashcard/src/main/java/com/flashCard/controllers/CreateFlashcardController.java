@@ -35,12 +35,14 @@ public class CreateFlashcardController {
 		}
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/createProcess", method = RequestMethod.POST)
 	public ModelAndView saveCreate(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("login") User login) {
 		ModelAndView mav = null;
-
+		//This is where the Starts the process of saving. 
+		//send the flashcard list into this service
+		flashcardService.addCreateFlashcard();
 		return mav;
 	}
 	
