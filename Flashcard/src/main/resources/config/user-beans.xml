@@ -5,7 +5,7 @@
     <bean id="userService" class="com.flashCard.service.impl.LoginServiceImpl" />
     <bean id="userDao" class="com.flashCard.dao.impl.LoginDaoImpl" />
     <bean id="flashcardService" class="com.flashCard.service.impl.FlashcardServiceImpl" />
-    <bean id="flashcardDao" class="com.flashCard.dao.impl.FlashcardDaoImpl" />
+<!--     <bean id="flashcardDao" class="com.flashCard.dao.impl.FlashcardDaoImpl" /> -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/" />
         <property name="suffix" value=".jsp" />

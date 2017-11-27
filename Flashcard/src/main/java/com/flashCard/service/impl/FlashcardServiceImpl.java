@@ -11,8 +11,8 @@ import com.flashCard.service.FlashcardService;
 @Service("flashcardService")
 public class FlashcardServiceImpl implements FlashcardService {
 
-	@Autowired
-	FlashcardDao flashcardDao;
+	//@Autowired
+	//FlashcardDao flashcardDao;
 	
 	 public void saveLogin(FlashCardSet set) {
 		 
@@ -21,7 +21,7 @@ public class FlashcardServiceImpl implements FlashcardService {
 
 	@Override
 	public void addCreateFlashcard(FlashCardSet set, String user) {
-		 flashcardDao.addCreateFlashcard(set, user);
+		// flashcardDao.addCreateFlashcard(set, user);
 		
 	}
 }
