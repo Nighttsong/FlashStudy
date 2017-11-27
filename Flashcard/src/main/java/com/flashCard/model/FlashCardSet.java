@@ -7,7 +7,7 @@ public class FlashCardSet {
 	private String name;
 	private String privacy;
 	private List<FlashCard> flashcards;
-	private int setID;
+	private String cat;
 	//List of all flashcards in one set
 	//Not sure if this will work, testing is a must!
 
@@ -25,6 +25,14 @@ public class FlashCardSet {
 	public void setFlashcards(List<FlashCard> flashcards) {
 		this.flashcards = flashcards;
 	}
-	
+	public String getName() {
+		return this.name;
+	}
+	public String getPrivacy() {
+		return this.privacy;
+	}
+	public String getCat() {
+		return this.cat;
+	}
 	
 }

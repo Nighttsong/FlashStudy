@@ -18,9 +18,10 @@ public class FlashcardServiceImpl implements FlashcardService {
 		 
 		 
 	 }
-	 
-	 public void addCreateFlashcard() {
-		 //Add the flashcards as the param
-		 flashcardDao.addCreateFlashcard();
-	 }
+
+	@Override
+	public void addCreateFlashcard(FlashCardSet set, String user) {
+		 flashcardDao.addCreateFlashcard(set, user);
+		
+	}
 }
