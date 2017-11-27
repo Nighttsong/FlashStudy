@@ -1,44 +1,20 @@
 package com.flashCard.model;
 
 public class FlashCard {
-	public Integer id;
-	public String category;
-	public String name;
-	public String privacy;
-	
-	
-	
-	public FlashCard(Integer id, String category, String name, String privacy) {
-		super();
-		this.id = id;
-		this.category = category;
-		this.name = name;
-		this.privacy = privacy;
+
+	//model for each flashcard
+	String front;
+	String back;
+	public String getFront() {
+		return front;
 	}
-	public Integer getId() {
-		return id;
+	public void setFront(String front) {
+		this.front = front;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public String getBack() {
+		return back;
 	}
-	public String getCategory() {
-		return category;
+	public void setBack(String back) {
+		this.back = back;
 	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPrivacy() {
-		return privacy;
-	}
-	public void setPrivacy(String privacy) {
-		this.privacy = privacy;
-	}
-	
-	
 }

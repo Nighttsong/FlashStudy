@@ -62,7 +62,7 @@
 		
 		</form:form>
 		
-		<button id="buildSet" onclick="buildSet()" type="button">Submit</button>
+		<button id="buildSet" onclick="buildSet()" type="button"><a href="mainPublicPage">Submit</a></button>
 	</div>
 	</div>
 	</div>
@@ -83,8 +83,33 @@
 		var table = document.getElementById("myTable");
 		var rowCount = table.rows.length;
 		var FrontBack = [];
+		
+		var sendObject = {
+			"name": $('#flashcardSetName').val(),
+			"privacy" : $('#privacy').val(),
+			"questions":[]	
+		};
 		$('#myTable').find('textarea').each(function(){
-			FrontBack.push(this.value);
+			sendObject.questions.push(this.value);
+		});
+		//add questions front and back
+		
+		/** Use when ajax, need to use contentType: "application/json" though....
+		for (var i=0; i < FrontBack.length; i++) {
+			var front = FrontBack[i++];
+			var back = FrontBack[i];
+			sendObject.questions.push({
+				"front": front,
+				"back": back
+			});
+		}
+		**/
+		
+		$.ajax({
+			url: "createProcess",
+			data: sendObject,
+			dataType: "json",
+			type: "post",
 		});
 // 		 $("#myTable").find("#flashcardSetName");
 // 		var flashcardSetName = document.getElementById('flashcardSetName').value();
