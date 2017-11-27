@@ -42,7 +42,7 @@ public class LoginController {
 			mav.addObject("nickname", user.getNickname());
 			mav.addObject("user", user.getUsername());
 			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 			mav.addObject("FlashCardList", flashcardList);
 		} else {
 			mav = new ModelAndView("login");
@@ -64,7 +64,7 @@ public class LoginController {
 			mav.addObject("nickname", login.getNickname());
 			mav.addObject("user", login.getUsername());
 			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 			mav.addObject("FlashCardList", flashcardList);
 		}else{
 			  mav = new ModelAndView("register");
@@ -86,7 +86,7 @@ public class LoginController {
 	public ModelAndView defaultMainPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
 		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-		flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
@@ -95,7 +95,7 @@ public class LoginController {
 	public ModelAndView mainPublicPageGet(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
 		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-		flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
@@ -109,7 +109,7 @@ public class LoginController {
 		if(user != null) {
 			mav = new ModelAndView("userMainPage");
 			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-			flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 			mav.addObject("FlashCardList", flashcardList);
 		}else {
 			mav = new ModelAndView("login");
