@@ -1,6 +1,7 @@
 package com.flashCard.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,13 +15,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.flashCard.model.FlashCard;
+import com.flashCard.model.FlashCardSet;
 import com.flashCard.model.User;
+import com.flashCard.service.FlashcardService;
 import com.flashCard.service.LoginService;
 
 @Controller
 public class LoginController {
 	@Autowired
 	LoginService loginService;
+	
+	@Autowired
+	FlashcardService flashcardService;
+
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
@@ -41,8 +48,8 @@ public class LoginController {
 			session.setAttribute("nickname", login.getNickname());
 			mav.addObject("nickname", user.getNickname());
 			mav.addObject("user", user.getUsername());
-			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+			flashcardList = flashcardService.getFlashcards(user.getUsername());
 			mav.addObject("FlashCardList", flashcardList);
 		} else {
 			mav = new ModelAndView("login");
@@ -63,8 +70,8 @@ public class LoginController {
 			session.setAttribute("nickname", login.getNickname());
 			mav.addObject("nickname", login.getNickname());
 			mav.addObject("user", login.getUsername());
-			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+			List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+			flashcardList = flashcardService.getFlashcards(login.getUsername());
 			mav.addObject("FlashCardList", flashcardList);
 		}else{
 			  mav = new ModelAndView("register");
@@ -85,8 +92,8 @@ public class LoginController {
 	@RequestMapping(value = "*", method = RequestMethod.GET)
 	public ModelAndView defaultMainPage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
-		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+		flashcardList = flashcardService.getPublicFlashcards("N");
 		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
@@ -94,8 +101,8 @@ public class LoginController {
 	@RequestMapping(value = "/mainPublicPage", method = RequestMethod.GET)
 	public ModelAndView mainPublicPageGet(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("mainPublicPage");
-		ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
-		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+		flashcardList = flashcardService.getPublicFlashcards("N");
 		mav.addObject("FlashCardList", flashcardList);
 		return mav;
 	}
@@ -108,7 +115,8 @@ public class LoginController {
 		ModelAndView mav = null;
 		if(user != null) {
 			mav = new ModelAndView("userMainPage");
-			ArrayList<FlashCard> flashcardList = new ArrayList<FlashCard>();
+			List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+			flashcardList = flashcardService.getFlashcards(user);
 			//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
 			mav.addObject("FlashCardList", flashcardList);
 		}else {

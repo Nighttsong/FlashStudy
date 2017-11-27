@@ -62,20 +62,23 @@ public class CreateFlashcardController {
 			FlashCard flashCard = new FlashCard();
 			flashCard.setFront(questions.get(i++));
 			flashCard.setBack(questions.get(i));
+			flashCard.setName(name);
+			flashCard.setPrivacy(privacy);
 			//add each card to the set
 			if (flashCard.getFront().length() > 0) {
 				flashCards.add(flashCard);
 			}
 		}
-		FlashCardSet set = new FlashCardSet();
-		set.setFlashcards(flashCards);
 		
-		//save the set? not sure......
-
-		//This is where the Starts the process of saving. 
-		//send the flashcard list into this service
-		flashcardService.addCreateFlashcard();
-
+		
+		flashcardService.addCreateFlashcard(flashCards, user);
+		mav = new ModelAndView("userMainPage");
+		List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+		flashcardList = flashcardService.getFlashcards(user);
+		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
+		mav.addObject("FlashCardList", flashcardList);
+		
+		
 		return mav;
 	}
 	

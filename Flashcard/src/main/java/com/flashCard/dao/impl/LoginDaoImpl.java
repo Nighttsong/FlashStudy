@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
- 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
  
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.web.servlet.ModelAndView;
  
 import com.flashCard.dao.LoginDao;
+import com.flashCard.model.FlashCard;
+import com.flashCard.model.FlashCardSet;
 import com.flashCard.model.User;
  
 public class LoginDaoImpl implements LoginDao {
@@ -187,5 +191,161 @@ public class LoginDaoImpl implements LoginDao {
               return user;
        }
 }
+       
+       
+       public void creatFlashCards(FlashCard sets, String user, int setNumber) {
+   		String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+        String dbUserName = "newremoteuser";
+        String dbPassword = "password";
+        Connection conn = null;
+            try {
+            	
+                  Class.forName("com.mysql.jdbc.Driver").newInstance();
+                  conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+                  System.out.println("Database connection established");
+                  String insertSQL = "INSERT INTO Flashcards (FLASHCARD_SET_NBR, FLASHCARD_SET_NAME, FRONT_DATA,BACK_DATA, USER_NAME, IS_PRIVATE) VALUES (" + setNumber + " , '" + sets.getName() +"', '" + sets.getFront() +"', '" +  sets.getBack() + "' , '" + user +"', '" + sets.getPrivacy() +"')";
+                  PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+                  boolean rs= preparedStatement.execute();
+                  
+     
+             }
+             catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                  e.printStackTrace();
+             }
+            	catch (SQLException e) {
+                  e.printStackTrace();
+            	}
+           
+            try {
+          	  conn.close();
+            }
+            catch (SQLException e) {
+                  e.printStackTrace();
+            }
+   	}
+       
+       public int getNextNumberSet() {
+    	   String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+           String dbUserName = "newremoteuser";
+           String dbPassword = "password";
+           Connection conn = null;
+           int num = 0;
+               try {
+               	
+                     Class.forName("com.mysql.jdbc.Driver").newInstance();
+                     conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+                     System.out.println("Database connection established");
+                     String insertSQL = "SELECT MAX(FLASHCARD_SET_NBR) AS maxsetNbr FROM Flashcards";
+                     PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+                     ResultSet rs= preparedStatement.executeQuery();
+                     while(rs.next()) {
+                         num= rs.getInt("maxsetNbr");
+                     }
+        
+                }
+                catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                     e.printStackTrace();
+                }
+               	catch (SQLException e) {
+                     e.printStackTrace();
+               	}
+              
+               try {
+             	  conn.close();
+               }
+               catch (SQLException e) {
+                     e.printStackTrace();
+               }
+    	   return num;
+       }
+       
+       public List<FlashCardSet> getFlashcards(String user) {
+    	   String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+           String dbUserName = "newremoteuser";
+           String dbPassword = "password";
+           Connection conn = null;
+           List<FlashCardSet> sets = new ArrayList<FlashCardSet>();
+           
+               try {
+               	
+                     Class.forName("com.mysql.jdbc.Driver").newInstance();
+                     conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+                     System.out.println("Database connection established");
+                     // not sure if works
+                     String insertSQL = "Select distinct(FLASHCARD_SET_NAME),  FLASHCARD_SET_NBR,  IS_PRIVATE from Flashcards where USER_NAME='" + user + "';";
+                     PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+                     ResultSet rs= preparedStatement.executeQuery();
+                     FlashCardSet flashcard = null;
+              
+                     while(rs.next()) {
+                         String set= rs.getString("FLASHCARD_SET_NAME");
+                         int id= rs.getInt("FLASHCARD_SET_NBR");
+                         String pri = rs.getString("IS_PRIVATE");
+                         flashcard = new FlashCardSet(id,set, pri);
+                         
+                         sets.add(flashcard);
+                     }
+        
+                }
+                catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                     e.printStackTrace();
+                }
+               	catch (SQLException e) {
+                     e.printStackTrace();
+               	}
+              
+               try {
+              	  conn.close();
+               }
+               catch (SQLException e) {
+                     e.printStackTrace();
+               }
+               
+               return sets;
+       }
+       
+  	 public List<FlashCardSet> getPublicFlashcards(String pri) {
+  		String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+        String dbUserName = "newremoteuser";
+        String dbPassword = "password";
+        Connection conn = null;
+        List<FlashCardSet> sets = new ArrayList<FlashCardSet>();
+        
+            try {
+            	
+                  Class.forName("com.mysql.jdbc.Driver").newInstance();
+                  conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+                  System.out.println("Database connection established");
+                  // not sure if works
+                  String insertSQL = "Select distinct(FLASHCARD_SET_NAME),  FLASHCARD_SET_NBR from Flashcards where IS_PRIVATE='" + pri + "';";
+                  PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+                  ResultSet rs= preparedStatement.executeQuery();
+                  FlashCardSet flashcard = null;
+           
+                  while(rs.next()) {
+                      String set= rs.getString("FLASHCARD_SET_NAME");
+                      int id= rs.getInt("FLASHCARD_SET_NBR");
+                      flashcard = new FlashCardSet(id,set, pri);
+                      
+                      sets.add(flashcard);
+                  }
+     
+             }
+             catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                  e.printStackTrace();
+             }
+            	catch (SQLException e) {
+                  e.printStackTrace();
+            	}
+           
+            try {
+           	  conn.close();
+            }
+            catch (SQLException e) {
+                  e.printStackTrace();
+            }
+            
+            return sets;
+  	 }
 }
  

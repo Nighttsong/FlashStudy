@@ -33,22 +33,20 @@
 	<h2>Personal Flash Card Sets</h2>
 	<table align="center">
 		<tr>
-			<th>FlashCard Category</th>
 			<th>FlashCard Set</th>
-			<th>Privacy</th>
-			<th>View</th>
+			<th>Is Private</th>
+			<th>Study</th>
 			<th>Edit</th>
 			<th>Print</th>
 		</tr>
 		
 		 <c:forEach items="${FlashCardList}" var="flashcard" >
 			<tr>
-				<td>${flashcard.category}</td>
 				<td>${flashcard.name}</td>
-				 <td>${flashcard.privacy}</td>
-				 <td><a href="/view?id=${flashcard.id}">View</a></td>
-				 <td><a href="/edit?id=${flashcard.id}">Edit</a></td>
-				 <td><a href="/print?id=${flashcard.id}">Print</a></td>
+ 				 <td>${flashcard.privacy}</td> 
+ 				 <td><a href="/study?id=${flashcard.id}">Study</a></td> 
+ 				 <td><a href="/edit?id=${flashcard.id}">Edit</a></td> 
+ 				 <td><a href="/print?id=${flashcard.id}">Print</a></td> 
 			</tr>
 		</c:forEach>
 	</table>

@@ -62,7 +62,7 @@
 		
 		</form:form>
 		
-		<button id="buildSet" onclick="buildSet()" type="button"><a href="mainPublicPage">Submit</a></button>
+		<button id="buildSet" onclick="buildSet()" type="button">Submit</button>
 	</div>
 	</div>
 	</div>

@@ -34,19 +34,15 @@
 	<h2>Public Sets: </h2>
 	<table align="center">
 		<tr>
-			<th>FlashCard Category</th>
 			<th>FlashCard Set</th>
-			<th>View</th>
-			<th>Edit</th>
+			<th>Study</th>
 			<th>Print</th>
 		</tr>
 		
 		 <c:forEach items="${FlashCardList}" var="flashcard" >
 			<tr>
-				<td>${flashcard.category}</td>
 				<td>${flashcard.name}</td>
-				 <td><a href="/view?id=${flashcard.id}">View</a></td>
-				 <td><a href="/edit?id=${flashcard.id}">Edit</a></td>
+				 <td><a href="/study?id=${flashcard.id}">Study</a></td>
 				 <td><a href="/print?id=${flashcard.id}">Print</a></td>
 			</tr>
 		</c:forEach>
