@@ -14,6 +14,9 @@
     	border: 1px solid black;
 	}
 </style>
+<script type="text/javascript"> 
+
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 </head>
@@ -26,29 +29,25 @@
 		</div>
 		<div style="width: 75%;">
 			<div style="width: 100%; margin-right: auto;">
-				<a href="create">Create New Set</a> <a href="mainPublicPage">Home</a>
+				<a href="/Flashcard/mainPublicPage">Home</a>
 			</div>
 		</div>
 	</div>
-	<h2>Personal Flash Card Sets</h2>
+	<center><h2>${name}</h2></center>
 	<table align="center">
 		<tr>
-			<th>FlashCard Set</th>
-			<th>Is Private</th>
-			<th>Study</th>
-			<th>View</th>
-			<th>Edit</th>
+			<th>Front</th>
+			<th>Back</th>
 		</tr>
 		
 		 <c:forEach items="${FlashCardList}" var="flashcard" >
 			<tr>
-				<td>${flashcard.name}</td>
- 				 <td>${flashcard.privacy}</td> 
- 				 <td><a href="study/${flashcard.id}">Study</a></td> 
- 				  <td><a href="view/${flashcard.id}">View</a></td> 
- 				 <td><a href="edit/${flashcard.id}">Edit</a></td>  
+				<td>${flashcard.front}</td>
+ 				 <td>${flashcard.back}</td> 
+ 				 
 			</tr>
 		</c:forEach>
 	</table>
+	<center><a href="javascript:window.print();">Print</a></center>
 </body>
 </html>

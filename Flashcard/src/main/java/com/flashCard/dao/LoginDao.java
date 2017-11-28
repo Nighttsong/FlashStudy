@@ -15,4 +15,5 @@ public interface LoginDao {
 	 public int getNextNumberSet();
 	 public List<FlashCardSet> getFlashcards(String user);
 	 public List<FlashCardSet> getPublicFlashcards(String pri);
+	 public List<FlashCard> getStudyFlashSet(int id);
 }

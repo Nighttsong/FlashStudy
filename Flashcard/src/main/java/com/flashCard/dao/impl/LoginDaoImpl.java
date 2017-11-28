@@ -347,5 +347,53 @@ public class LoginDaoImpl implements LoginDao {
             
             return sets;
   	 }
+  	 
+  	 public List<FlashCard> getStudyFlashSet(int id) {
+  		String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+        String dbUserName = "newremoteuser";
+        String dbPassword = "password";
+        Connection conn = null;
+        List<FlashCard> sets = new ArrayList<FlashCard>();
+        
+            try {
+            	
+                  Class.forName("com.mysql.jdbc.Driver").newInstance();
+                  conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+                  System.out.println("Database connection established");
+                  // not sure if works
+                  String insertSQL = "Select * from Flashcards where FLASHCARD_SET_NBR=" + id + ";";
+                  PreparedStatement preparedStatement = conn.prepareStatement(insertSQL);
+                  ResultSet rs= preparedStatement.executeQuery();
+                  FlashCard flashcard = null;
+           
+                  while(rs.next()) {
+                	  //(String name,String front, String back, int id)
+                	  
+                      String set= rs.getString("FLASHCARD_SET_NAME");
+                      String front = rs.getString("FRONT_DATA");
+                      String back = rs.getString("BACK_DATA");
+                      
+                      flashcard = new FlashCard(set, front, back, id);
+                      
+                      sets.add(flashcard);
+                  }
+     
+             }
+             catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                  e.printStackTrace();
+             }
+            	catch (SQLException e) {
+                  e.printStackTrace();
+            	}
+           
+            try {
+           	  conn.close();
+            }
+            catch (SQLException e) {
+                  e.printStackTrace();
+            }
+            
+            return sets;
+  	 }
 }
  

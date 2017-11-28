@@ -36,14 +36,14 @@
 		<tr>
 			<th>FlashCard Set</th>
 			<th>Study</th>
-			<th>Print</th>
+			<th>View</th>
 		</tr>
 		
 		 <c:forEach items="${FlashCardList}" var="flashcard" >
 			<tr>
 				<td>${flashcard.name}</td>
-				 <td><a href="/study?id=${flashcard.id}">Study</a></td>
-				 <td><a href="/print?id=${flashcard.id}">Print</a></td>
+				 <td><a href="study/${flashcard.id}">Study</a></td>
+				 <td><a href="view/${flashcard.id}">View</a></td>
 			</tr>
 		</c:forEach>
 	</table>

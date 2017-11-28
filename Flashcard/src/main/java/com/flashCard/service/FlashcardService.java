@@ -12,4 +12,5 @@ public interface FlashcardService {
 	 public void addCreateFlashcard(List<FlashCard> set, String user);
 	 public List<FlashCardSet> getFlashcards(String user);
 	 public List<FlashCardSet> getPublicFlashcards(String pri);
+	 public List<FlashCard> getStudyFlashSet( int id);
 }

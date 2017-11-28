@@ -7,8 +7,32 @@ public class FlashCard {
 	String privacy;
 	String front;
 	String back;
+	int id;
+	public FlashCard() {
+		
+	}
+	public FlashCard(String name,String front, String back, int id) {
+		super();
+		this.name = name;
+		this.front = front;
+		this.back = back;
+		this.id = id;
+	}
 	
-	
+	public FlashCard(String name, String privacy, String front, String back, int id) {
+		super();
+		this.name = name;
+		this.privacy = privacy;
+		this.front = front;
+		this.back = back;
+		this.id = id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

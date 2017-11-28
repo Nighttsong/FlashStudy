@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.flashCard.model.FlashCard;
 import com.flashCard.model.FlashCardSet;
 import com.flashCard.model.User;
 import com.flashCard.service.FlashcardService;
+import com.google.gson.Gson;
 
 @Controller
 public class CreateFlashcardController {
@@ -70,7 +72,6 @@ public class CreateFlashcardController {
 			}
 		}
 		
-		
 		flashcardService.addCreateFlashcard(flashCards, user);
 		mav = new ModelAndView("userMainPage");
 		List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
@@ -82,5 +83,36 @@ public class CreateFlashcardController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/study/{id}", method = RequestMethod.GET)
+	public ModelAndView study(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int id) {
+		
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		ModelAndView mav = null;
+		Gson gson = new Gson();
+		mav = new ModelAndView("study");
+		List<FlashCard> flashcards = new ArrayList<FlashCard> ();
+		flashcards = flashcardService.getStudyFlashSet(id);
+		String send =  gson.toJson(flashcards);
+		send = send.replaceAll("\"", "'");
+		mav.addObject("FlashCardList", send);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+	public ModelAndView view(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable int id) {
+		
+		HttpSession session = request.getSession();
+		String user = (String) session.getAttribute("user");
+		ModelAndView mav = null;
+		mav = new ModelAndView("view");
+		List<FlashCard> flashcards = new ArrayList<FlashCard> ();
+		flashcards = flashcardService.getStudyFlashSet(id);
+		mav.addObject("FlashCardList", flashcards);
+		mav.addObject("name", flashcards.get(0).getName() );
+		return mav;
+	}
 	
 }

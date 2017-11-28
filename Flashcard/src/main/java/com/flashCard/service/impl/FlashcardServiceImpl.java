@@ -38,4 +38,8 @@ public class FlashcardServiceImpl implements FlashcardService {
 	 public List<FlashCardSet> getPublicFlashcards(String pri) {
 		 return userDao.getPublicFlashcards(pri);
 	 }
+	 
+	 public List<FlashCard> getStudyFlashSet( int id) {
+		 return userDao.getStudyFlashSet(id);
+	 }
 }
