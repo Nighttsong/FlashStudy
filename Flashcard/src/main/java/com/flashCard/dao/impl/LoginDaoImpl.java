@@ -37,17 +37,17 @@ public class LoginDaoImpl implements LoginDao {
               boolean isValid = true;
               String response = "";
               if (!validateEmail(user)){
-//                      mav = new ModelAndView("Register");
-//                      mav.addObject("message", "Email already in use");
             	  isValid = false;
                      response = "Email already in use";
                 }
                 if (!validateUsername(user)){
-//                      mav = new ModelAndView("Register");
-//                      mav.addObject("message", "Username already in use");
-                	isValid = false;
+	                	isValid = false;
                 	response = "Username already in use";
                 }
+                if (!validateNickname(user)){
+	            	isValid = false;
+            	response = "Nickname already in use";
+            }
               if(isValid) {
 	              try {
 	                    Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -107,6 +107,33 @@ public class LoginDaoImpl implements LoginDao {
               }
               return false;
        }
+       
+       public boolean validateNickname(User user){
+           String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
+           String dbUserName = "newremoteuser";
+           String dbPassword = "password";
+           Connection conn = null;
+           ModelAndView mav = null;
+
+           try {
+         	  Class.forName("com.mysql.jdbc.Driver").newInstance();
+               conn = DriverManager.getConnection(dbName, dbUserName, dbPassword);
+               
+         	  String sql = ("SELECT * FROM User WHERE NICKNAME  ='" + user.getNickname() + "';");
+         	  PreparedStatement preparedStatement = conn.prepareStatement(sql);
+               ResultSet rs= preparedStatement.executeQuery();
+               if(rs.next()){
+                     return false;
+                 }else {
+                 	return true;
+                 }
+           } catch (SQLException | InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+           }
+           return false;
+    }
+       
        public boolean validateUsername(User user){
               String dbName = "jdbc:mysql://ec2-13-58-137-45.us-east-2.compute.amazonaws.com:3306/myDB";
               String dbUserName = "newremoteuser";

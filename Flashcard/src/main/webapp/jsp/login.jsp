@@ -21,6 +21,60 @@
 	border-spacing: 0px;
 	border-style: hidden;
 }
+
+	input[type=text] {
+	    padding: 0;
+	    height: 30px;
+	    position: relative;
+	    left: 0;
+	    outline: none;
+	    border: 1px solid #cdcdcd;
+	    border-color: rgba(0,0,0,.15);
+	    background-color: white;
+	    font-size: 16px;
+	}
+	
+	.passwordclass {
+	    padding: 0;
+	    height: 30px;
+	    position: relative;
+	    left: 0;
+	    outline: none;
+	    border: 1px solid #cdcdcd;
+	    border-color: rgba(0,0,0,.15);
+	    background-color: white;
+	    font-size: 16px;
+	}
+	
+	.label {
+		font-size: 16px;
+		
+	}
+	
+	.stylingDiv {
+		border-radius: 5px;
+		padding:10px;
+	
+	
+	}
+	
+	
+        .btn {
+		  -webkit-border-radius: 7;
+		  -moz-border-radius: 7;
+		  border-radius: 7px;
+		  font-family: Georgia;
+		  color: #000000;
+		  font-size: 15px;
+		  background: #dbdbdb;
+		  padding: 6px 15px 6px 15px;
+		  text-decoration: none;
+		}
+		
+		.btn:hover {
+		  background: #d5aed9;
+		  text-decoration: none;
+		}
 </style>
 <body style="background-color: #d3ccb8">
 	<div id="banner" align=center>
@@ -45,6 +99,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="stylingDiv">
 	<form:form id="loginForm" modelAttribute="login" action="loginProcess"
 		method="post">
 		<table align="center">
@@ -53,18 +108,18 @@
 				<td></td>
 			</tr>
 			<tr>
-				<td><form:label path="username">Username: </form:label></td>
+				<td><form:label path="username">Username : </form:label></td>
 				<td><form:input path="username" name="username" id="username" />
 				</td>
 			</tr>
 			<tr>
-				<td><form:label path="password">Password:</form:label></td>
-				<td><form:password path="password" name="password"
+				<td><form:label path="password">Password  :</form:label></td>
+				<td><form:password class="passwordclass" path="password" name="password"
 						id="password" /></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td align="left"><form:button id="login" name="login">Login</form:button>
+				<td align="left"><form:button class="btn" id="login" name="login">Login</form:button>
 				</td>
 			</tr>
 		</table>
@@ -74,5 +129,6 @@
 			<td style="font-style: italic; color: red;">${message}</td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>

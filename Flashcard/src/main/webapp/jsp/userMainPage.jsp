@@ -37,7 +37,6 @@
 			<th>Is Private</th>
 			<th>Study</th>
 			<th>View</th>
-			<th>Edit</th>
 		</tr>
 		
 		 <c:forEach items="${FlashCardList}" var="flashcard" >
@@ -45,8 +44,7 @@
 				<td>${flashcard.name}</td>
  				 <td>${flashcard.privacy}</td> 
  				 <td><a href="study/${flashcard.id}">Study</a></td> 
- 				  <td><a href="view/${flashcard.id}">View</a></td> 
- 				 <td><a href="edit/${flashcard.id}">Edit</a></td>  
+ 				  <td><a href="view/${flashcard.id}">View</a></td>  
 			</tr>
 		</c:forEach>
 	</table>

@@ -5,6 +5,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<style type="text/css">
+
+	
+
+  .btn {
+		  -webkit-border-radius: 7;
+		  -moz-border-radius: 7;
+		  border-radius: 7px;
+		  font-family: Georgia;
+		  color: #000000;
+		  font-size: 15px;
+		  background: #dbdbdb;
+		  padding: 5px 10px 5px 10px;
+		  text-decoration: none;
+		}
+		
+		.btn:hover {
+		  background: #d5aed9;
+		  text-decoration: none;
+		}
+	.btnsmall {
+		  -webkit-border-radius: 7;
+		  -moz-border-radius: 7;
+		  border-radius: 7px;
+		  font-family: Georgia;
+		  color: #000000;
+		  font-size: 11px;
+		  background: #dbdbdb;
+		    padding: 7px 7px 7px 7px;
+		  text-decoration: none;
+		}
+		
+		.btnsmall:hover {
+		  background: #d5aed9;
+		  text-decoration: none;
+		}
+		
+		
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 </head>
@@ -29,11 +68,11 @@
 					action="createProcess" method="post">
 					<table id="myTable">
 						<tr>
-							<td>Flashcard Set Name:</td>
+							<td class = "label">Flashcard Set Name:</td>
 							<td><input type="text" name="flashcardSetName" id="flashcardSetName"><br></td>
 						</tr>
 						<tr>
-							<td>Privacy: <select name="privacy" id="privacy"><option value="Y">Private</option>
+							<td class="label">Privacy: <select class="dropdown" name="privacy" id="privacy"><option value="Y">Private</option>
 									<option value="N">Public</option></select> <br> <td>
 				
 						</tr>
@@ -58,11 +97,11 @@
 					<td><textarea rows="4" cols="35" id="back" name="back"></textarea></td>
 				</tr>
 			</table>
-			<button id="addplease" onclick="add()" type="button">+</button>
+			<button class="btnsmall" id="addplease" onclick="add()" type="button">+</button>
 		
 		</form:form>
 		
-		<button id="buildSet" onclick="buildSet()" type="button">Submit</button>
+		<button class="btn" id="buildSet" onclick="buildSet()" type="button">Submit</button>
 	</div>
 	</div>
 	</div>
@@ -92,32 +131,21 @@
 		$('#myTable').find('textarea').each(function(){
 			sendObject.questions.push(this.value);
 		});
-		//add questions front and back
-		
-		/** Use when ajax, need to use contentType: "application/json" though....
-		for (var i=0; i < FrontBack.length; i++) {
-			var front = FrontBack[i++];
-			var back = FrontBack[i];
-			sendObject.questions.push({
-				"front": front,
-				"back": back
-			});
-		}
-		**/
-		
+
 		$.ajax({
 			url: "createProcess",
 			data: sendObject,
 			dataType: "json",
-			type: "post",
+			type: "get"
 		});
-// 		 $("#myTable").find("#flashcardSetName");
-// 		var flashcardSetName = document.getElementById('flashcardSetName').value();
-// 		var privacy = document.getElementById('privacy').value();
-// 		alert(privacy);
-// 		alert(flashcardSetName);
+
+		 setTimeout(redirectTo, 2000);    
+		 
 	}
 	
+	function redirectTo() {
+		location.href = "userMainPage";
+	}
 </script>
 
 </html>

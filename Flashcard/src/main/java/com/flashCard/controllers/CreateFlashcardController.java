@@ -36,15 +36,15 @@ public class CreateFlashcardController {
 		ModelAndView mav = null;
 		if(user != null) {
 			mav = new ModelAndView("create");
-			// TODO: Load the users' saved flashcards and show them...
 			mav.addObject("flashCardSet", new FlashCardSet());
 		}else {
 			mav = new ModelAndView("login");
+			mav.addObject("login", new User());
 		}
 		return mav;
 	}
 	
-	@RequestMapping(value = "/createProcess", method = RequestMethod.POST)
+	@RequestMapping(value = "/createProcess", method = RequestMethod.GET)
 	public ModelAndView saveCreate(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("name") String name, @RequestParam("privacy") String privacy, @RequestParam("questions[]") List<String> questions) {
 		
@@ -55,30 +55,30 @@ public class CreateFlashcardController {
 
 		if(user == null) {
 			mav = new ModelAndView("login");
+			mav.addObject("login", new User());
 			return mav;
-		}
-		
-		//go thru the responses
-		List<FlashCard> flashCards = new ArrayList<FlashCard>();
-		for (int i=0; i < questions.size(); i++) {
-			FlashCard flashCard = new FlashCard();
-			flashCard.setFront(questions.get(i++));
-			flashCard.setBack(questions.get(i));
-			flashCard.setName(name);
-			flashCard.setPrivacy(privacy);
-			//add each card to the set
-			if (flashCard.getFront().length() > 0) {
-				flashCards.add(flashCard);
+		}else {
+			
+			//go thru the responses
+			List<FlashCard> flashCards = new ArrayList<FlashCard>();
+			for (int i=0; i < questions.size(); i++) {
+				FlashCard flashCard = new FlashCard();
+				flashCard.setFront(questions.get(i++));
+				flashCard.setBack(questions.get(i));
+				flashCard.setName(name);
+				flashCard.setPrivacy(privacy);
+				//add each card to the set
+				if (flashCard.getFront().length() > 0) {
+					flashCards.add(flashCard);
+				}
 			}
+			
+			flashcardService.addCreateFlashcard(flashCards, user);
+			mav = new ModelAndView("userMainPage");
+			List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
+			flashcardList = flashcardService.getFlashcards(user);
+			mav.addObject("FlashCardList", flashcardList);
 		}
-		
-		flashcardService.addCreateFlashcard(flashCards, user);
-		mav = new ModelAndView("userMainPage");
-		List<FlashCardSet> flashcardList = new ArrayList<FlashCardSet>();
-		flashcardList = flashcardService.getFlashcards(user);
-		//flashcardList.add(new FlashCard(1, "exampleCat", "examplename", "Y"));
-		mav.addObject("FlashCardList", flashcardList);
-		
 		
 		return mav;
 	}
